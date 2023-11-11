@@ -1,0 +1,15 @@
+services:
+  otel:
+    image: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:0.88.0
+    ports:
+    - 4318:4318
+    secrets:
+    - DD_API_KEY
+    volumes:
+    - source: otel.yml
+      target: /etc/otelcol-contrib/config.yaml
+      type: bind
+
+secrets:
+  DD_API_KEY:
+    file: ~/.dd-api-key

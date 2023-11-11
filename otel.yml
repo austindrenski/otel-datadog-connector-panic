@@ -1,0 +1,29 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+
+processors:
+  batch:
+
+connectors:
+  datadog:
+
+exporters:
+  debug:
+    verbosity: detailed
+
+service:
+  pipelines:
+    metrics:
+      receivers: [ datadog ]
+      exporters: [ debug ]
+
+    traces:
+      receivers: [ otlp ]
+      processors: [ batch ]
+      exporters: [ datadog ]
+
+    traces/2:
+      receivers: [ datadog ]
+      exporters: [ debug ]
